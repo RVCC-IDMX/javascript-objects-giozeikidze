@@ -20,10 +20,12 @@ const allowedGenres = ["Animation", "Family", "Action", "Comedy", "Drama", "Sci-
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment
  */
 export function setMovieRating(movie, rating) {
-
-  // implement code here
-  // Use dot notation to update the rating.
-
+  if (movie && typeof rating === 'number' && rating >= 0 && rating <= 10) {
+    movie.rating = rating;
+  } else {
+    console.error('Invalid movie object or rating');
+  }
+  return movie;
 }
 
 /**
@@ -34,10 +36,12 @@ export function setMovieRating(movie, rating) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment
  */
 export function addMovieGenre(movie, genre) {
-
-  // implement code here
-  // Validate the new genre against the allowedGenres array.
-
+  if (movie && typeof genre === 'string' && allowedGenres.includes(genre)) {
+    movie.genre = genre;
+  } else {
+    console.error('Invalid movie object or genre');
+  }
+  return movie;
 }
 
 /**
@@ -47,10 +51,12 @@ export function addMovieGenre(movie, genre) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
  */
 export function removeDirectorProperty(movie) {
-
-  // implement code here
-  // Use the delete operator to remove the property.
-
+  if (movie && movie.hasOwnProperty('director')) {
+    delete movie.director;
+  } else {
+    console.error('Invalid movie object or director property does not exist');
+  }
+  return movie;
 }
 
 /**
@@ -61,7 +67,12 @@ export function removeDirectorProperty(movie) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
  */
 export function addCastMember(movie, newMember) {
-  // implement code here
+  if (movie && Array.isArray(movie.cast) && typeof newMember === 'string') {
+    movie.cast.push(newMember);
+  } else {
+    console.error('Invalid movie object, cast array, or new member');
+  }
+  return movie;
 }
 
 /**
@@ -70,8 +81,7 @@ export function addCastMember(movie, newMember) {
  * @returns {Array} - An array of allowed genres.
  */
 export function getAllowedGenres() {
-  // implement code here
-  // Return a copy so external code can't modify the private array.
+  return [...allowedGenres];
 }
 
 // --------------------
